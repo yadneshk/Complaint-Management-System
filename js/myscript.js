@@ -32,7 +32,7 @@ function emailValidate(email)
      }
 }
 function passwordValidate(password) {
-     var pattern= /^[A-Za-z0-9]\w{7,14}$/;
+     var pattern= /^[A-Za-z0-9]\w{2,14}$/;
      if(password!="")
      {
           if(password.match(pattern))
@@ -71,9 +71,11 @@ $(document).ready(function(){
                     $('#errorBox').html('');
                     $.ajax({
                          type: "POST",
-                         url: "file:///home/yadnesh/Fedora26/Complaint-Management-System/server.php",
+                         url: "signup.php",
                          data: {
-                              username: "yadnesh"
+                              username: username,
+                              email: email,
+                              password: password
                          },
                          success: function(result){
                               alert(result);
@@ -103,10 +105,29 @@ $(document).ready(function(){
                $("#btnSignup").before($("#or"));
           }
           else {
-               alert("submitting to server");
-               $("#inputUsername").hide();
+               /*$("#inputUsername").hide();
                $("#inputEmail").hide();
-               $("#inputPassword").hide();
+               $("#inputPassword").hide();*/
+               var username=$('#inputUsername').val();
+               var password=$('#inputPassword').val();
+               if(usernameValidate(username) && passwordValidate(password))
+               {
+                    $('#errorBox').html('');
+                    $.ajax({
+                         type: "POST",
+                         url: "login.php",
+                         data: {
+                              username: username,
+                              password: password
+                         },
+                         success: function(result){
+                              alert(result);
+                         }
+                    });
+               }
+               else {
+                    //$('#errorBox').html("Invalid Fields");
+               }
           }
      });
 });

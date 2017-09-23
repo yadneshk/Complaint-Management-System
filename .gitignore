@@ -1,1 +1,4 @@
-css/*.map
+css/*
+css/bootstrap*
+js/bootstrap*
+js/jquery.js
